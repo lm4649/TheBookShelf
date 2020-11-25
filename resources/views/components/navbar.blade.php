@@ -23,6 +23,7 @@
           Export
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <x-export-form />
         </div>
       </li>
     </ul>
