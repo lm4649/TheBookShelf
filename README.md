@@ -1,4 +1,4 @@
-Test the BookShelf online (http://the-bookshelf-lm4649.herokuapp.com/)
+[Test the BookShelf online](http://the-bookshelf-lm4649.herokuapp.com/)
 
 ## About The BookShelf
 
