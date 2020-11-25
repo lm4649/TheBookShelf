@@ -22,7 +22,7 @@
     <thead class = "header">
       <tr>
         <th scope="col" class = "header">
-          <a href="#" data-toggle="tooltip" data-placement="left" title="sort by titles">
+          <a href="{{ route('by_title')}}" data-toggle="tooltip" data-placement="left" title="sort by titles">
             Title
           </a>
         </th>

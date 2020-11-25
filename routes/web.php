@@ -11,3 +11,5 @@ Route::post('/', [BookController::class, 'store'])->name('add');
 Route::delete('/{id}', [BookController::class, 'destroy'])->name('destroy');
 // change author for a book
 Route::put('/{book}', [BookController::class, 'update'])->name('update');
+// sort list
+Route::get('/by_title', [BookController::class, 'by_title'])->name('by_title');
