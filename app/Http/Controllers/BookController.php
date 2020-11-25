@@ -54,6 +54,14 @@ class BookController extends Controller
       return redirect()->route('books')->with('status', $title . ' has been removed from the shelf;-)');
     }
 
+    //edit the author name
+    public function update(Request $request, int $id)
+    {
+      $book = Book::find($id);
+      $book->author = $request->input("author");
+      $book->save();
+      return redirect()->route('books')->with('status', $title = $book->title . ' has been updated;-)');
+    }
 //---------------------------PRIVATE METHODS----------------------------------//
 
     protected function search_books($term, $order = 'created_at')

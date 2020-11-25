@@ -9,3 +9,5 @@ Route::get('/', [BookController::class, 'index'])->name('books');
 Route::post('/', [BookController::class, 'store'])->name('add');
 // delete a book from the list
 Route::delete('/{id}', [BookController::class, 'destroy'])->name('destroy');
+// change author for a book
+Route::put('/{book}', [BookController::class, 'update'])->name('update');
