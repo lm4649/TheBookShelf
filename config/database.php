@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Str;
 
-$DATABASE_URL = parse_url(get_env('DATABASE_URL'));
+$DATABASE_URL = parse_url(getenv('DATABASE_URL'));
 
 return [
 
@@ -68,11 +68,11 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
-            'host' => $DATABASE_URL["host"],//env('DB_HOST', '127.0.0.1'),
-            'port' => $DATABASE_URL["port"],//env('DB_PORT', '5432'),
-            'database' => ltrim($DATABASE_URL["path"], "/"),//env('DB_DATABASE', 'forge'),
-            'username' => $DATABASE_URL["user"],//env('DB_USERNAME', 'forge'),
-            'password' => $DATABASE_URL["pass"],//env('DB_PASSWORD', ''),
+            'host' => isset($DATABASE_URL["host"]) ? $DATABASE_URL["host"] : env('DB_HOST', '127.0.0.1'),
+            'port' => isset($DATABASE_URL["port"]) ? $DATABASE_URL["port"] : env('DB_PORT', '5432'),
+            'database' => isset($DATABASE_URL["path"]) ? ltrim($DATABASE_URL["path"], "/") : env('DB_DATABASE', 'forge'),
+            'username' => isset($DATABASE_URL["user"]) ? $DATABASE_URL["user"] : env('DB_USERNAME', 'forge'),
+            'password' => isset($DATABASE_URL["pass"]) ? $DATABASE_URL["pass"] : env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
