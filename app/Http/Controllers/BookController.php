@@ -27,7 +27,6 @@ class BookController extends Controller
     // add a book
     public function store(Request $request)
     {
-
      // validation
       $this->validate($request, [
         'title' => 'required|unique:books|max:255',
@@ -119,7 +118,6 @@ class BookController extends Controller
       {
         $response = $this->export_XML($columns);
       }
-
       return response()->stream($response[0], $response[1], $response[2]);
     }
 
@@ -169,7 +167,7 @@ class BookController extends Controller
           foreach ($books as $book) {
               $rows = [];
               $rows[]= $columns[0] == 'Title' ?  $book->title : $book->author;
-              if($columns[1] == 'Author')
+              if(sizeof($columns) == 2 && $columns[1] == 'Author')
               {
                 $rows[]= $book->author;
               }
