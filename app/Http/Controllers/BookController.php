@@ -94,6 +94,35 @@ class BookController extends Controller
       }
       return view('books.index', ['books' => $books]);
     }
+
+     // export the list CSV or XML
+    public function export(Request $request)
+    {
+      $columns = [
+        'titles' => $request->input('Title'),
+        'authors'=> $request->input('Author'),
+      ];
+
+      // if user forgot to pick columns select both for him/her
+      if ($columns['titles'] == null && $columns['authors'] == null)
+      {
+        $columns['titles'] = 'Title';
+        $columns['authors'] = 'Author';
+      }
+
+      // then checked type of select file
+      if( $request->input('fileFormat') == 'CSV')
+      {
+        $response = $this->export_CSV($columns);
+      }
+      else
+      {
+        $response = $this->export_XML($columns);
+      }
+
+      return response()->stream($response[0], $response[1], $response[2]);
+    }
+
 //---------------------------PRIVATE METHODS----------------------------------//
 
     protected function search_books($term, $order = 'created_at')
@@ -115,4 +144,91 @@ class BookController extends Controller
       $search_terms = explode( ' ', $term);
       return join(" ", array_reverse($search_terms));
     }
+
+    protected function export_CSV(array $args)
+    {
+
+      $fileName = 'books.csv';
+      $books = Book::all()->sortDesc();
+      $columns = $args['titles'] == 'Title' ? [$args['titles'], $args['authors']] : [$args['authors']];
+      //dd($columns);
+      // callback function required for streaming file
+      $callback = function() use($books, $columns)
+      {
+          // create CSV file
+          $file = fopen('php://output', 'w');
+
+          // fill it according to selected columns by user
+          fputcsv($file, $columns);
+          foreach ($books as $book) {
+              $rows = [];
+              $rows[]= $columns[0] == 'Title' ?  $book->title : $book->author;
+              if($columns[1] == 'Author')
+              {
+                $rows[]= $book->author;
+              }
+
+              fputcsv($file, $rows);
+          }
+
+          fclose($file);
+      };
+
+      // prepare headers for response
+      $headers = array(
+          "Content-type"        => "text/csv",
+          "Content-Disposition" => "attachment; filename=$fileName",
+          "Pragma"              => "no-cache",
+          "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+          "Expires"             => "0"
+      );
+
+      return [$callback, 200, $headers];
+    }
+
+    private function export_XML(array $args)
+    {
+      $fileName = "books.xml";
+      $books = Book::all()->sortDesc();
+      $columns = $args;
+
+      // callback function required for streaming file
+      $callback = function() use($books, $fileName, $columns)
+      {
+        // create the xml document
+        $xml = new \DOMDocument('1.0', 'utf-8');
+        $root = $xml->appendChild($xml->createElement("book_listing"));
+
+        // add each book to the xml doc according to selected columns by user
+        foreach ($books as $book)
+        {
+          $element = $root->appendChild($xml->createElement("book"));
+          if ($columns['titles'] == 'Title')
+          {
+            $element->appendChild($xml->createElement("title", $book->title));
+          }
+          if ($columns['authors'] == 'Author')
+          {
+            $element->appendChild($xml->createElement("author", $book->author));
+          }
+        }
+
+        // output xml doc
+        $xml->formatOutput = true;
+        echo $xml->saveXML();
+      };
+
+      // prepare header for response
+      $headers = array(
+          "Content-type"        => "application/xml",
+          "Content-Disposition" => "attachment; filename=$fileName",
+          "Pragma"              => "no-cache",
+          "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+          "Expires"             => "0"
+      );
+
+      // send xml doc
+      return [$callback, 200, $headers];
+    }
+
 }
