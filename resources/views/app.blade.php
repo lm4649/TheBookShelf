@@ -10,6 +10,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   </head>
   <body>
+    <x-navbar />
     @yield('content')
   </body>
 </html>
