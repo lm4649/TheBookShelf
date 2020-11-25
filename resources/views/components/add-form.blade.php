@@ -20,7 +20,7 @@
                     name="title"
                     value="{{@old('title')}}"
                     required
-                    oninvalid="this.setCustomValidity('Please Enter a title')"
+                    oninvalid="this.setCustomValidity('Please enter a title')"
                     oninput="setCustomValidity('')"
             >
             @error('title')
@@ -38,7 +38,7 @@
                     name="author"
                     value="{{@old('author')}}"
                     required
-                    oninvalid="this.setCustomValidity('Please Enter the author name')"
+                    oninvalid="this.setCustomValidity('Please enter the author\'s name')"
                     oninput="setCustomValidity('')"
                     placeholder="Usage: Last name First name Middle name"
             >

@@ -41,9 +41,10 @@
           <td>{{$book->title}}</td>
           <td>{{$book->author}}</td>
           <td class="d-flex justify-content-center align-items-center">
-            <a href="#" class="btn">
+            <a href="#" class="btn" data-toggle="modal" data-target="{{ '#edit-modal' . $book->id}}">
               <i class="far fa-edit text-white" data-toggle="tooltip" data-placement="left" title="edit this book"></i>
             </a>
+            <x-edit-form :book="$book"/>
             <span> | </span>
             <a href="#" class="btn" data-toggle="modal" data-target="{{ '#delete-modal' . $book->id}}">
               <i class="far fa-trash-alt text-white" data-toggle="tooltip" data-placement="right" title="remove this book"></i>
