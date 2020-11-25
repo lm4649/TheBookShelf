@@ -63,7 +63,7 @@ class BookController extends Controller
       return redirect()->route('books')->with('status', $title = $book->title . ' has been updated;-)');
     }
 
-    // show list of books ordered by title
+    // show list of books ordered by titles
     public function by_title(Request $request)
     {
       if ($request->old('search') || $request->input('search'))
@@ -79,6 +79,21 @@ class BookController extends Controller
       return view('books.index', ['books' => $books]);
     }
 
+    // show list of books ordered by authors
+    public function by_author(Request $request)
+    {
+      if ($request->old('search') || $request->input('search'))
+      {
+        $search = $request->old('search') ? $request->old('search') : $request->input('search');
+        $books = $this->search_books($search, 'author');
+        $request->flashOnly('search');
+      }
+      else
+      {
+        $books = Book::all()->sortBy('author');
+      }
+      return view('books.index', ['books' => $books]);
+    }
 //---------------------------PRIVATE METHODS----------------------------------//
 
     protected function search_books($term, $order = 'created_at')
