@@ -45,7 +45,16 @@ class BookController extends Controller
       return redirect()->route('books')->with('status', $book->title . ' has been added to the shelf;-)');
     }
 
-    //-----------------------PRIVATE METHODS----------------------------------//
+    // delete a book
+    public function destroy(int $id)
+    {
+      $book = Book::find($id);
+      $title = $book->title;
+      $book->delete();
+      return redirect()->route('books')->with('status', $title . ' has been removed from the shelf;-)');
+    }
+
+//---------------------------PRIVATE METHODS----------------------------------//
 
     protected function search_books($term, $order = 'created_at')
     {
