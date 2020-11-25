@@ -45,9 +45,10 @@
               <i class="far fa-edit text-white" data-toggle="tooltip" data-placement="left" title="edit this book"></i>
             </a>
             <span> | </span>
-            <a href="#" class="btn">
+            <a href="#" class="btn" data-toggle="modal" data-target="{{ '#delete-modal' . $book->id}}">
               <i class="far fa-trash-alt text-white" data-toggle="tooltip" data-placement="right" title="remove this book"></i>
             </a>
+            <x-delete-form :book="$book" />
           </td>
         </tr>
         @endforeach
