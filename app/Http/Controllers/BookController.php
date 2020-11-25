@@ -24,6 +24,27 @@ class BookController extends Controller
       return view('books.index', ['books' => $books]);
     }
 
+    // add a book
+    public function store(Request $request)
+    {
+
+     // validation
+      $this->validate($request, [
+        'title' => 'required|unique:books|max:255',
+        'author' => 'required|max:255'
+      ]);
+
+      // store book
+      $book = Book::create([
+        'title' => $request->title,
+        'author' => $request->author
+      ]);
+      $book->save();
+
+      // redirect to the book list
+      return redirect()->route('books')->with('status', $book->title . ' has been added to the shelf;-)');
+    }
+
     //-----------------------PRIVATE METHODS----------------------------------//
 
     protected function search_books($term, $order = 'created_at')

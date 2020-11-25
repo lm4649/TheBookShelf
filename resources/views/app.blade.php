@@ -10,6 +10,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   </head>
   <body>
+    {{-- add-form modal shall be placed on top the body --}}
+    <x-add-form />
     <x-navbar />
     @yield('content')
   </body>

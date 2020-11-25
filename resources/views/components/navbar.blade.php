@@ -12,7 +12,7 @@
           Manage the Bookshelf
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a href="#" class="dropdown-item" data-toggle="modal" data-target=".bd-example-modal-lg">Add a book</a>
+          <a href="#" class="dropdown-item" data-toggle="modal" data-target="#form_to_add">Add a book</a>
           <a class="dropdown-item" href="/by_title">Sort by titles</a>
           <a class="dropdown-item" href="/by_author">Sort by authors</a>
         </div>

@@ -31,7 +31,7 @@
             Author
           </a>
         </th>
-        <th scope="col" class="header text-center"><a href="#">Add a book</a></th>
+        <th scope="col" class="header text-center"><a href="#" data-toggle="modal" data-target="#form_to_add">Add a book</a></th>
       </tr>
     </thead>
     <tbody style="height: 500px; overflow-y: auto;">
