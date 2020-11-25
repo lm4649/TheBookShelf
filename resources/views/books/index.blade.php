@@ -27,7 +27,7 @@
           </a>
         </th>
         <th scope="col" class = "header">
-          <a href="#" data-toggle="tooltip" data-placement="bottom" title="sort by authors">
+          <a href="{{ route('by_author')}}" data-toggle="tooltip" data-placement="bottom" title="sort by authors">
             Author
           </a>
         </th>
