@@ -127,6 +127,12 @@ class BookController extends Controller
 
     protected function search_books($term, $order = 'created_at')
     {
+      // prevent app to crash if user press search button without input
+      if ($term == null)
+      {
+        return Book::all()->sortDesc();
+      }
+
       $search = '%' . trim($term) . '%';
       $reversed_search = '%' . trim($this->reverse_words($term)) . '%';
       $books = DB::table('books')->distinct()
