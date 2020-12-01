@@ -25,11 +25,11 @@ The BookShelf is a book list web application including the following functions:
 
   [Check here](https://laravel.com/docs/8.x/installation) to check the prerequisites for running Laravel 8 on your computer.
  
- Clone and pull the repo
- Change '.env.example' file to '.env' and setup your database info from line 10 to 15
- Run the server (php artisan serve)
- Run the migration (php artisan migrate)
- Run the Book seeder (php artisan db:seed --class=BookSeeder)
+ 1. Clone and pull the repo
+ 2. Change '.env.example' file to '.env' and setup your database info from line 10 to 15
+ 3. Run the server (php artisan serve)
+ 4. Run the migration (php artisan migrate)
+ 5. Run the Book seeder (php artisan db:seed --class=BookSeeder)
   
   ***Attention points:***
   - In 'config\database.php', line 5 ($DATABASE_URL=...) shall be commented
